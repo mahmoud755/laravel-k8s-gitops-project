@@ -1,0 +1,56 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: laravel-app
+  labels:
+    app: laravel
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: laravel
+  template:
+    metadata:
+      labels:
+        app: laravel
+    spec:
+      volumes:
+        - name: nginx-config
+          configMap:
+            name: laravel-nginx-config
+      containers:
+        - name: laravel
+          image: laravel-app-image:v1
+          # imagePullPolicy: Never
+          # ports:
+          #   - containerPort: 9000
+          envFrom:
+            - secretRef:
+                name: laravel-app-secret
+            - secretRef:
+                name: mysql-secret
+          # volumeMounts:
+          #   - name: nginx-config
+          #     mountPath: /var/www/.env
+          #     subPath: .env
+          resources:
+            requests:
+              memory: "64Mi"
+              cpu: "250m"
+            limits:
+              memory: "128Mi"
+              cpu: "500m"
+        - name: nginx
+          image: nginx:alpine
+          ports:
+            - containerPort: 80
+          volumeMounts:
+            - name: nginx-config
+              mountPath: /etc/nginx/conf.d
+          resources:
+            requests:
+              memory: "64Mi"
+              cpu: "250m"
+            limits:
+              memory: "128Mi"
+              cpu: "500m"

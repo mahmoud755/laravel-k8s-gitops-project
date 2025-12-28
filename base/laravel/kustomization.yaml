@@ -1,0 +1,13 @@
+resources:
+- laravel-deployment.yaml
+- laravel-service.yaml
+- nginx-configmap.yaml
+- laravel-secrets.yaml
+- mysql-secret.yaml
+- retain-sc.yaml
+- mysql-pv.yaml
+- mysql-pvc.yaml
+- mysql-service.yaml
+- mysql-statefulset.yaml
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization

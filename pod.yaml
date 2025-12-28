@@ -1,0 +1,201 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  creationTimestamp: "2025-12-15T11:11:39Z"
+  generateName: laravel-app-d69f4d478-
+  generation: 1
+  labels:
+    app: laravel
+    app.kubernetes.io/managed-by: manual
+    pod-template-hash: d69f4d478
+  name: laravel-app-d69f4d478-xxr76
+  namespace: default
+  ownerReferences:
+  - apiVersion: apps/v1
+    blockOwnerDeletion: true
+    controller: true
+    kind: ReplicaSet
+    name: laravel-app-d69f4d478
+    uid: 0756d979-bd33-4d46-9306-7a416d3aa5a1
+  resourceVersion: "269624"
+  uid: 92dfd0a5-8441-4ea6-b1d0-d561b339bec6
+spec:
+  containers:
+  - env:
+    - name: DB_HOST
+      value: mysql
+    image: laravel-docker_app:latest
+    imagePullPolicy: Never
+    name: laravel
+    ports:
+    - containerPort: 9000
+      protocol: TCP
+    resources:
+      limits:
+        cpu: 500m
+        memory: 128Mi
+      requests:
+        cpu: 250m
+        memory: 64Mi
+    terminationMessagePath: /dev/termination-log
+    terminationMessagePolicy: File
+    volumeMounts:
+    - mountPath: /etc/nginx/conf.d
+      name: nginx-config
+    - mountPath: /var/run/secrets/kubernetes.io/serviceaccount
+      name: kube-api-access-7fw7z
+      readOnly: true
+  - image: nginx:alpine
+    imagePullPolicy: IfNotPresent
+    name: nginx
+    ports:
+    - containerPort: 80
+      protocol: TCP
+    resources:
+      limits:
+        cpu: 500m
+        memory: 128Mi
+      requests:
+        cpu: 250m
+        memory: 64Mi
+    terminationMessagePath: /dev/termination-log
+    terminationMessagePolicy: File
+    volumeMounts:
+    - mountPath: /var/run/secrets/kubernetes.io/serviceaccount
+      name: kube-api-access-7fw7z
+      readOnly: true
+  dnsPolicy: ClusterFirst
+  enableServiceLinks: true
+  nodeName: minikube
+  preemptionPolicy: PreemptLowerPriority
+  priority: 0
+  restartPolicy: Always
+  schedulerName: default-scheduler
+  securityContext: {}
+  serviceAccount: default
+  serviceAccountName: default
+  terminationGracePeriodSeconds: 30
+  tolerations:
+  - effect: NoExecute
+    key: node.kubernetes.io/not-ready
+    operator: Exists
+    tolerationSeconds: 300
+  - effect: NoExecute
+    key: node.kubernetes.io/unreachable
+    operator: Exists
+    tolerationSeconds: 300
+  volumes:
+  - configMap:
+      defaultMode: 420
+      name: laravel-nginx-config
+    name: nginx-config
+  - name: kube-api-access-7fw7z
+    projected:
+      defaultMode: 420
+      sources:
+      - serviceAccountToken:
+          expirationSeconds: 3607
+          path: token
+      - configMap:
+          items:
+          - key: ca.crt
+            path: ca.crt
+          name: kube-root-ca.crt
+      - downwardAPI:
+          items:
+          - fieldRef:
+              apiVersion: v1
+              fieldPath: metadata.namespace
+            path: namespace
+status:
+  conditions:
+  - lastProbeTime: null
+    lastTransitionTime: "2025-12-15T11:11:41Z"
+    observedGeneration: 1
+    status: "True"
+    type: PodReadyToStartContainers
+  - lastProbeTime: null
+    lastTransitionTime: "2025-12-15T11:11:39Z"
+    observedGeneration: 1
+    status: "True"
+    type: Initialized
+  - lastProbeTime: null
+    lastTransitionTime: "2025-12-15T11:11:41Z"
+    observedGeneration: 1
+    status: "True"
+    type: Ready
+  - lastProbeTime: null
+    lastTransitionTime: "2025-12-15T11:11:41Z"
+    observedGeneration: 1
+    status: "True"
+    type: ContainersReady
+  - lastProbeTime: null
+    lastTransitionTime: "2025-12-15T11:11:39Z"
+    observedGeneration: 1
+    status: "True"
+    type: PodScheduled
+  containerStatuses:
+  - allocatedResources:
+      cpu: 250m
+      memory: 64Mi
+    containerID: docker://7ab45c1f78db1eae916f348f5341f1ada0f4bc3aec44d5c1a61292e4cd8c66a7
+    image: laravel-docker_app:latest
+    imageID: docker://sha256:e676d58914a7c7b104f4e1aaf8605db410d7c1684934181aa438c3087cf5a638
+    lastState: {}
+    name: laravel
+    ready: true
+    resources:
+      limits:
+        cpu: 500m
+        memory: 128Mi
+      requests:
+        cpu: 250m
+        memory: 64Mi
+    restartCount: 0
+    started: true
+    state:
+      running:
+        startedAt: "2025-12-15T11:11:40Z"
+    volumeMounts:
+    - mountPath: /etc/nginx/conf.d
+      name: nginx-config
+    - mountPath: /var/run/secrets/kubernetes.io/serviceaccount
+      name: kube-api-access-7fw7z
+      readOnly: true
+      recursiveReadOnly: Disabled
+  - allocatedResources:
+      cpu: 250m
+      memory: 64Mi
+    containerID: docker://782eecbf4ada0f0dc704130051b856501f800d2e7e4468f14ca7600df3d1f826
+    image: nginx:alpine
+    imageID: docker-pullable://nginx@sha256:b3c656d55d7ad751196f21b7fd2e8d4da9cb430e32f646adcf92441b72f82b14
+    lastState: {}
+    name: nginx
+    ready: true
+    resources:
+      limits:
+        cpu: 500m
+        memory: 128Mi
+      requests:
+        cpu: 250m
+        memory: 64Mi
+    restartCount: 0
+    started: true
+    state:
+      running:
+        startedAt: "2025-12-15T11:11:41Z"
+    volumeMounts:
+    - mountPath: /var/run/secrets/kubernetes.io/serviceaccount
+      name: kube-api-access-7fw7z
+      readOnly: true
+      recursiveReadOnly: Disabled
+  hostIP: 192.168.49.2
+  hostIPs:
+  - ip: 192.168.49.2
+  observedGeneration: 1
+  phase: Running
+  podIP: 10.244.0.11
+  podIPs:
+  - ip: 10.244.0.11
+  qosClass: Burstable
+  startTime: "2025-12-15T11:11:39Z"

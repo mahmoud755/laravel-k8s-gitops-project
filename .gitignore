@@ -1,0 +1,24 @@
+# Laravel
+/vendor
+/node_modules
+.env
+.env.local
+storage/logs/*
+bootstrap/cache/*
+
+# K8s secrets (never commit!)
+*-secret.yaml
+.kube/config
+
+# IDE
+.vscode/
+.idea/
+*.swp
+
+# Node/npm
+package-lock.json
+yarn.lock
+
+# OS
+.DS_Store
+Thumbs.db
