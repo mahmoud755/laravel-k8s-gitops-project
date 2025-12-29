@@ -13,3 +13,12 @@ spec:
   storageClassName: retain-storageclass  # Links to your StorageClass
   hostPath:  # For local testing (replace with your storage)
     path: /data/mysql  # Create this directory on your node
+  nodeAffinity:  # ADD THIS SECTION
+    required:
+      nodeSelectorTerms:
+      - matchExpressions:
+        - key: kubernetes.io/hostname
+          operator: In
+          values:
+          - minikube  # Replace with actual node name
+

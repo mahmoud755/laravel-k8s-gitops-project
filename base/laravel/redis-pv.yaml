@@ -11,3 +11,11 @@ spec:
   storageClassName: redis-storage
   local:
     path: /data/redis
+  nodeAffinity:  # ADD THIS SECTION
+    required:
+      nodeSelectorTerms:
+      - matchExpressions:
+        - key: kubernetes.io/hostname
+          operator: In
+          values:
+          - minikube  # Replace with actual node name
