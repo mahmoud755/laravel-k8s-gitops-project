@@ -1,0 +1,85 @@
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: redis
+spec:
+  serviceName: redis-service
+  replicas: 1  # Single Redis instance for now
+  selector:
+    matchLabels:
+      app: redis
+  template:
+    metadata:
+      labels:
+        app: redis
+    spec:
+      containers:
+      - name: redis
+        image: redis:7-alpine  # Lightweight Redis image
+        ports:
+        - containerPort: 6379
+          name: redis
+        
+        # Command to start Redis with config
+        command:
+          - redis-server
+          - /usr/local/etc/redis/redis.conf
+          - --requirepass
+          - $(REDIS_PASSWORD)
+        
+        # Environment variables
+        envFrom:
+        - secretRef:
+            name: redis-secret
+        # env:
+        # - name: REDIS_PASSWORD
+        #   valueFrom:
+        #     secretKeyRef:
+        #       name: redis-secret
+        #       key: redis-password
+        
+        # Resource limits
+        # resources:
+        #   requests:
+        #     cpu: 100m
+        #     memory: 256Mi
+        #   limits:
+        #     cpu: 500m
+        #     memory: 512Mi
+        
+        # Health checks
+        # livenessProbe:
+        #   exec:
+        #     command:
+        #     - redis-cli
+        #     - --raw
+        #     - incr
+        #     - ping
+        #   initialDelaySeconds: 10
+        #   periodSeconds: 10
+        
+        # readinessProbe:
+        #   exec:
+        #     command:
+        #     - redis-cli
+        #     - ping
+        #   initialDelaySeconds: 5
+        #   periodSeconds: 5
+        
+        # Mount configuration
+        volumeMounts:
+        - name: redis-config
+          mountPath: /usr/local/etc/redis/
+
+        - name: redis-data
+          mountPath: /data/redis
+      
+      # Volumes
+      volumes:
+      - name: redis-config
+        configMap:
+          name: redis-config
+
+      - name: redis-data
+        persistentVolumeClaim:
+          claimName: redis-pvc

@@ -29,6 +29,8 @@ spec:
                 name: laravel-app-secret
             - secretRef:
                 name: mysql-secret
+            - secretRef:
+                name: redis-secret.yaml
           # volumeMounts:
           #   - name: nginx-config
           #     mountPath: /var/www/.env

@@ -1,0 +1,33 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: redis-config
+data:
+  redis.conf: |
+    # Redis Configuration
+    port 6379
+    bind 0.0.0.0
+    databases 16
+    
+    # Persistence
+    save 900 1           # Save after 900s if 1+ changes
+    save 300 10          # Save after 300s if 10+ changes
+    save 60 10000        # Save after 60s if 10k+ changes
+    
+    # Memory
+    maxmemory 256mb
+    maxmemory-policy allkeys-lru
+    
+    # Replication
+    replica-read-only yes
+    
+    # Logging
+    loglevel notice
+    logfile ""
+    
+    # Keep-alive
+    timeout 0
+    tcp-keepalive 300
+    
+    # Require password
+    requirepass secure_password
