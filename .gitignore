@@ -6,6 +6,9 @@
 storage/logs/*
 bootstrap/cache/*
 
+# Docker files
+laravel-docker/
+
 # K8s secrets (never commit!)
 *-secret.yaml
 .kube/config
