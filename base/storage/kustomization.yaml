@@ -1,0 +1,5 @@
+resources:
+- retain-sc.yaml
+- retain-redis-sc.yaml
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization

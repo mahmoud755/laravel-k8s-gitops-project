@@ -1,0 +1,39 @@
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: redis
+spec:
+  serviceName: redis-service
+  replicas: 1  # Single Redis instance for now
+  selector:
+    matchLabels:
+      app: redis
+  template:
+    metadata:
+      labels:
+        app: redis
+    spec:
+      containers:
+        - name: redis
+          image: redis:7-alpine
+          ports:
+            - containerPort: 6379
+              name: redis
+          envFrom:
+            - secretRef:
+                name: redis-secret
+          command:
+            - redis-server
+            - /usr/local/etc/redis/redis.conf
+          volumeMounts:
+            - name: redis-config
+              mountPath: /usr/local/etc/redis
+            - name: redis-data
+              mountPath: /data/redis
+      volumes:
+        - name: redis-config
+          configMap:
+            name: redis-config
+        - name: redis-data
+          persistentVolumeClaim:
+            claimName: redis-pvc

@@ -1,10 +1,20 @@
+namespace: dev
 apiVersion: kustomize.config.k8s.io/v1beta1
 kind: Kustomization
 
 
 resources:
+  - namespace.yaml
   - ../../base
+  - ingress.yaml
+  - pdb.yaml
+  - hpa.yaml
 
+patches:
+  - path: patch-probes.yaml
+    target:
+      kind: Deployment
+      name: laravel-app
 
 generatorOptions:
   disableNameSuffixHash: true

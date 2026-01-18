@@ -2,8 +2,7 @@ apiVersion: storage.k8s.io/v1
 kind: StorageClass
 metadata:
   name: retain-storageclass
-provisioner: kubernetes.io/minikue-hostpath  # Use existing PVs
+provisioner: kubernetes.io/minikube-hostpath  # Use existing PVs
 reclaimPolicy: Retain
 volumeBindingMode: WaitForFirstConsumer
 allowVolumeExpansion: true
-
