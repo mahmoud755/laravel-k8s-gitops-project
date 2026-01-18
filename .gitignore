@@ -25,3 +25,19 @@ yarn.lock
 # OS
 .DS_Store
 Thumbs.db
+
+# logs
+*.log
+
+# archives / binaries
+*.tar.gz
+
+# local notes / scratch
+docker_lines.txt
+pod.yaml
+
+# secrets/certs (never commit)
+*.pem
+*.key
+*.crt
+
