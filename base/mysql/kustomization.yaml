@@ -1,5 +1,6 @@
 resources:
-- mysql-secret.yaml
+  #- mysql-secret.yaml
+- mysql-sealedsecret.yaml
 - mysql-pv.yaml
 - mysql-pvc.yaml
 - mysql-service.yaml
