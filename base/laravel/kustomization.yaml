@@ -2,7 +2,8 @@ resources:
 - laravel-deployment.yaml
 - laravel-service.yaml
 - nginx-configmap.yaml
-- laravel-secrets.yaml
+# - laravel-secrets.yaml
+- laravel-app-sealedsecret.yaml
 - laravel-worker.yaml
 apiVersion: kustomize.config.k8s.io/v1beta1
 kind: Kustomization
