@@ -3,18 +3,18 @@ kind: Deployment
 metadata:
   name: laravel-worker
   labels:
-    app: laravel-app
+    app: laravel-worker
     role: worker
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: laravel-app
+      app: laravel-worker
       role: worker
   template:
     metadata:
       labels:
-        app: laravel-app
+        app: laravel-worker
         role: worker
     spec:
       containers:

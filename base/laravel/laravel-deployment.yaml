@@ -3,16 +3,16 @@ kind: Deployment
 metadata:
   name: laravel-app
   labels:
-    app: laravel
+    app: laravel-app
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: laravel
+      app: laravel-app
   template:
     metadata:
       labels:
-        app: laravel
+        app: laravel-app
     spec:
       volumes:
         - name: nginx-config
