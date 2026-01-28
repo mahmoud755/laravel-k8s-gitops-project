@@ -6,8 +6,8 @@ metadata:
 spec:
   project: default
   source:
-    repoURL: https://github.com/ahmedeagle/laravel-gitops-k8s.git
-    targetRevision: HEAD
+    repoURL: https://github.com/mahmoud755/laravel-k8s-gitops-project.git
+    targetRevision: main
     path: overlays/prod
   destination:
     server: https://kubernetes.default.svc
