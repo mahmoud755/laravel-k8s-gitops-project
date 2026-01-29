@@ -3,12 +3,13 @@ kind: Ingress
 metadata:
   name: laravel-ingress
   annotations:
-    nginx.ingress.kubernetes.io/use-forwarded-headers: "true"
+    alb.ingress.kubernetes.io/scheme: internet-facing
+    alb.ingress.kubernetes.io/target-type: ip
+    alb.ingress.kubernetes.io/listen-ports: '[{"HTTP":80}]'
 spec:
-  ingressClassName: nginx
+  ingressClassName: alb
   rules:
-    - host: laravel.local
-      http:
+    - http:
         paths:
           - path: /
             pathType: Prefix
