@@ -1,0 +1,23 @@
+apiVersion: storage.k8s.io/v1
+kind: StorageClass
+metadata:
+  name: retain-storageclass
+$patch: delete
+---
+apiVersion: storage.k8s.io/v1
+kind: StorageClass
+metadata:
+  name: redis-storage
+$patch: delete
+---
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: mysql-pv
+$patch: delete
+---
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: redis-pv
+$patch: delete

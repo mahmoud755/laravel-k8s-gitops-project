@@ -19,6 +19,15 @@ patches:
     target:
       kind: Service
       name: mysql
+  - path: patch-mysql-pvc.yaml
+    target:
+      kind: PersistentVolumeClaim
+      name: mysql-pvc
+  - path: patch-redis-pvc.yaml
+    target:
+      kind: PersistentVolumeClaim
+      name: redis-pvc
+  - path: patch-delete-minikube-storage.yaml
 
 generatorOptions:
   disableNameSuffixHash: true
