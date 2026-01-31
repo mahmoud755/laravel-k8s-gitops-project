@@ -26,8 +26,8 @@ spec:
           # ports:
           #   - containerPort: 9000
           envFrom:
-          - secretRef:
-              name: laravel-app-secret
+            - secretRef:
+                name: laravel-app-secret
             - secretRef:
                 name: mysql-secret
             - secretRef:
